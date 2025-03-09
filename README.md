@@ -13,6 +13,7 @@ This project is a fully functional RESTful API for an e-commerce platform built 
 -   Database migrations and seeders
 -   Caching for performance improvement
 -   Docker support for easy deployment
+-   Fixtures for base data
 
 ## Technologies Used
 
@@ -75,6 +76,14 @@ php artisan key:generate
 php artisan migrate --seed
 ```
 
+### Load Fixtures for Base Data
+
+Fixtures provide initial test data. Run the following command to populate the database with sample products:
+
+```sh
+php artisan db:seed --class=ProductSeeder
+```
+
 ### Install Passport Keys
 
 ```sh
@@ -95,7 +104,7 @@ php artisan serve
 docker-compose up -d --build
 ```
 
-### Run Migrations
+### Run Migrations & Load Fixtures
 
 ```sh
 docker exec -it ecommerce-api php artisan migrate --seed
@@ -109,10 +118,12 @@ The API documentation is auto-generated using Swagger. After running the applica
 http://127.0.0.1:8000/api/documentation
 ```
 
+To generate the API documentation, run:
+
+```sh
+php artisan l5-swagger:generate
+```
+
 ## Testing the API
 
 Use tools like **Postman** or **cURL** to test the API endpoints.
-
-## License
-
-This project is licensed under the MIT License.

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * @OA\Info(
@@ -25,10 +26,16 @@ class ProductController extends Controller
      * )
      */
 
+
     public function index()
     {
-        return response()->json(Product::all());
+        $products = Cache::remember('products', 60, function () {
+            return Product::all();
+        });
+
+        return response()->json($products);
     }
+
 
     public function store(Request $request)
     {
@@ -41,12 +48,11 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create($validated);
-        return response()->json($product, 201);
-    }
 
-    public function show(Product $product)
-    {
-        return response()->json($product);
+        // Clear product cache
+        Cache::forget('products');
+
+        return response()->json($product, 201);
     }
 
     public function update(Request $request, Product $product)
@@ -60,12 +66,29 @@ class ProductController extends Controller
         ]);
 
         $product->update($validated);
+
+        // Clear product cache
+        Cache::forget('products');
+
         return response()->json($product);
     }
+
+
+
+    public function show(Product $product)
+    {
+        return response()->json($product);
+    }
+
 
     public function destroy(Product $product)
     {
         $product->delete();
+
+        // Clear product cache
+        Cache::forget('products');
+
         return response()->json(['message' => 'Product deleted successfully']);
     }
+
 }
