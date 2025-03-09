@@ -38,7 +38,7 @@ Ensure you have the following installed:
 ### Clone the Repository
 
 ```sh
-git clone https://github.com/your-username/ecommerce-api.git
+git clone https://github.com/narenderrai23/ecommerce-api.git
 cd ecommerce-api
 ```
 
@@ -74,14 +74,6 @@ php artisan key:generate
 
 ```sh
 php artisan migrate --seed
-```
-
-### Load Fixtures for Base Data
-
-Fixtures provide initial test data. Run the following command to populate the database with sample products:
-
-```sh
-php artisan db:seed --class=ProductSeeder
 ```
 
 ### Install Passport Keys
