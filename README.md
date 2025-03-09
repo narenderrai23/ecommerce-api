@@ -76,12 +76,6 @@ php artisan key:generate
 php artisan migrate --seed
 ```
 
-### Install Passport Keys
-
-```sh
-php artisan passport:install
-```
-
 ### Start the Development Server
 
 ```sh
